@@ -113,6 +113,18 @@ export async function shortfilmMultipartComplete(token, payload) {
   return data;
 }
 
+/** After successful single PUT to S3 — marks VideoUpload as processing (same as multipart complete). */
+export async function shortfilmUploadComplete(token, payload) {
+  const res = await fetch(`${API_BASE}/api/v1/shortfilm/upload/complete/`, {
+    method: "POST",
+    headers: { ...defaultHeaders(), ...authHeaders(token) },
+    body: JSON.stringify(payload),
+  });
+  const data = await parseJsonSafe(res);
+  if (!res.ok) throw new Error(data?.error || "Could not finalize upload");
+  return data;
+}
+
 export async function shortfilmThumbnailPresign(token, payload) {
   const res = await fetch(`${API_BASE}/api/v1/shortfilm/thumbnails/presign/`, {
     method: "POST",

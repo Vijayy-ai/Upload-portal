@@ -3,7 +3,7 @@ import "./theme.css";
 import {
   fetchMyProfile, otpSend, otpResend, otpVerify,
   shortfilmMultipartComplete, shortfilmThumbnailPresign,
-  shortfilmUploadStart, s3Put, uploadFileMultipart,
+  shortfilmUploadStart, shortfilmUploadComplete, s3Put, uploadFileMultipart,
 } from "./api.js";
 
 const TOKEN_KEY   = "sf_access";
@@ -360,6 +360,11 @@ export default function App() {
         setUploadMsg("Uploading video — 0%");
         setUploadProgress(0.05);
         await s3Put(start.upload_url, videoFile, videoFile.type || "video/mp4");
+        setUploadMsg("Finalising upload…");
+        await shortfilmUploadComplete(token, {
+          video_upload_id: start.video_upload_id,
+          s3_key: start.s3_key,
+        });
         setUploadProgress(1);
       }
 
