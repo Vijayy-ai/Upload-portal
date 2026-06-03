@@ -505,8 +505,8 @@ export default function App() {
                   Try again
                 </button>
                 <p className="sf-profile-panel-hint">
-                  For local development, set <code className="sf-code">VITE_API_BASE=http://127.0.0.1:8000</code> in{" "}
-                  <code className="sf-code">.env</code> (with Django on port 8000) and restart Vite.
+                  For local development, set <code className="sf-code">API_URL=http://127.0.0.1:8000</code> in{" "}
+                  <code className="sf-code">.env</code> (and restart server).
                 </p>
               </div>
             )}

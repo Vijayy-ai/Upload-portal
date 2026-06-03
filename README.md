@@ -14,7 +14,7 @@ Backend must allow uploads for this account (Django Admin → Users → Upload P
 ngrok (and some other tunnels) show a browser interstitial. The app sends `ngrok-skip-browser-warning` on every request.
 
 1. `.env` is ignored by git. Start from `.env.example` — your workspace already contains a populated `.env` pointing at ngrok until you swap the domain.
-2. `VITE_API_BASE` must be the full origin, e.g. `https://captivative-stalkable-india.ngrok-free.dev` (no trailing slash).
+2. `API_URL` must be the full origin, e.g. `https://captivative-stalkable-india.ngrok-free.dev` (no trailing slash).
 
 ### Run locally
 

@@ -21,11 +21,12 @@ function outboundAgentForOrigin(origin) {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const apiBase = (env.VITE_API_BASE || "http://localhost:8000").replace(/\/$/, "");
+  const apiBase = (env.API_URL || env.VITE_API_BASE || "http://localhost:8000").replace(/\/$/, "");
   const outboundAgent = outboundAgentForOrigin(apiBase);
 
   return {
     plugins: [react()],
+    envPrefix: ['VITE_', 'API_'],
     server: {
       port: 5174,
       strictPort: false,

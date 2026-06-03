@@ -3,7 +3,7 @@
 const IS_DEV = import.meta.env.DEV;
 const API_BASE = IS_DEV
   ? "" // relative → Vite proxy handles it (see vite.config.js)
-  : (import.meta.env.VITE_API_BASE || "").replace(/\/$/, "");
+  : (import.meta.env.API_URL || import.meta.env.VITE_API_BASE || "").replace(/\/$/, "");
 
 const defaultHeaders = () => {
   const h = {
