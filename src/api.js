@@ -5,12 +5,16 @@ const API_BASE = IS_DEV
   ? "" // relative → Vite proxy handles it (see vite.config.js)
   : (import.meta.env.API_URL || import.meta.env.VITE_API_BASE || "").replace(/\/$/, "");
 
+const needsNgrokBypass = () => {
+  if (IS_DEV) return true; // Vite proxy forwards to ngrok/local API
+  const base = API_BASE.toLowerCase();
+  return base.includes("ngrok");
+};
+
 const defaultHeaders = () => {
-  const h = {
-    "Content-Type": "application/json",
-    // ngrok free tier interstitial bypass (Vite proxy also sets this server-side)
-    "ngrok-skip-browser-warning": "1",
-  };
+  const h = { "Content-Type": "application/json" };
+  // Custom headers trigger CORS preflight in production — only send for ngrok tunnels.
+  if (needsNgrokBypass()) h["ngrok-skip-browser-warning"] = "1";
   return h;
 };
 
